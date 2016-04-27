@@ -22,13 +22,9 @@ var config = {
 		{
 			module: 'calendar',
 			header: 'Kalender',
-			position: 'bottom_left',
+			position: 'top_right',
 			config: {
 				calendars: [
-					// {
-					// 	symbol: 'calendar-check-o ',
-					// 	url: 'webcal://www.calendarlabs.com/templates/ical/US-Holidays.ics'
-					// },
 					{
 						symbol: 'calendar-check-o ',
 						url: 'https://calendar.google.com/calendar/ical/1ongjafuhtohge0om9q0p70nbo%40group.calendar.google.com/private-3e265cd53bc6e4198e56d25a98b52734/basic.ics'
@@ -42,7 +38,7 @@ var config = {
 		},
 		{
 			module: 'currentweather',
-			position: 'top_right',
+			position: 'top_left',
 			config: {
 				location: 'Eschweiler',
 				appid: 'cf75c38780f8a019aa5de48d17cd39a9'
@@ -50,7 +46,7 @@ var config = {
 		},
 		{
 			module: 'weatherforecast',
-			position: 'top_right',
+			position: 'top_left',
 			header: 'Weather Forecast',
 			config: {
 	            location: 'Eschweiler',
