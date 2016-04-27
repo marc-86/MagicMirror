@@ -3,7 +3,10 @@ Module.register("Distance",{
 	// Default module config.
 	defaults: {
 		text: "New Distance"
-        
+        updateInterval: 1000,
+		echoPin: 14;
+		triggerPin: 15;
+		timeout: 750;
 	},
 
     var distance = 0;
@@ -14,7 +17,9 @@ Module.register("Distance",{
 		if (error) {
 			Log.info('Error');
 		} else {
-			sensor = usonic.createSensor(14, 15, 450);
+			sensor = usonic.createSensor(this.config.echoPin, 
+										 this.config.triggerPin,
+										 this.config.timeout);
 			Log.info('usonic sensor initialised');
 		}
 	});
@@ -33,7 +38,7 @@ Module.register("Distance",{
 		  return wrapper;
 	}
     
-    onStart: function() {
+    start: function() {
 		Log.info("Starting module: " + this.name);		
 
 		// Schedule update interval.
@@ -41,6 +46,6 @@ Module.register("Distance",{
 		setInterval(function() {
 		    self.refreshDistance();
 			self.updateDom();
-		}, 1000);
+		}, this.config.updateInterval);
     }
 });
