@@ -2,11 +2,11 @@ Module.register("Distance",{
 
 	// Default module config.
 	defaults: {
-		text: "New Distance"
-        updateInterval: 1000,
-		echoPin: 14;
-		triggerPin: 15;
-		timeout: 750;
+		text: "New Distance",
+        	updateInterval: 1000,
+		echoPin: 14,
+		triggerPin: 15,
+		timeout: 750,
 	},
 
     var distance = 0;

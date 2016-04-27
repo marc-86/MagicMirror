@@ -15,6 +15,8 @@ var config = {
 		{
 			module: 'alert',
 		},
+		{	module: 'distance',
+		},
 		{
 			module: 'clock',
 			position: 'top_left'
