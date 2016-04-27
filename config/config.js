@@ -22,7 +22,7 @@ var config = {
 		{
 			module: 'calendar',
 			header: 'Kalender',
-			position: 'top_right',
+			position: 'top_left',
 			config: {
 				calendars: [
 					{
@@ -38,7 +38,7 @@ var config = {
 		},
 		{
 			module: 'currentweather',
-			position: 'top_left',
+			position: 'top_right',
 			config: {
 				location: 'Eschweiler',
 				appid: 'cf75c38780f8a019aa5de48d17cd39a9'
@@ -46,7 +46,7 @@ var config = {
 		},
 		{
 			module: 'weatherforecast',
-			position: 'top_left',
+			position: 'top_right',
 			header: 'Weather Forecast',
 			config: {
 	            location: 'Eschweiler',
