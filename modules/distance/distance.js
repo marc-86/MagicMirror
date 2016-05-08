@@ -1,29 +1,29 @@
 Module.register("Distance",{
 
-// 	// Default module config.
-// 	defaults: {
-// 		text: "New Distance",
-//         	updateInterval: 1000,
-// 		echoPin: 14,
-// 		triggerPin: 15,
-// 		timeout: 750,
-// 	},
-
-//    // Override dom generator.
-// 	getDom: function() {
-// 		var wrapper = document.createElement("div");
-// 		wrapper.innerHTML = "Distanz: " + this.distance;
-// 		  return wrapper;
-// 	},
+	defaults: {
+        updateInterval: 200,
+		echoPin: 14,
+		triggerPin: 15,
+		timeout: 750,
+	},
     
-//     start: function() {
-// 		Log.info("Starting module: " + this.name);		
+	start: function() {
+		this.sendSocketNotification("SET_CONFIG", this.config);
+		// this.sendSocketNotification("DISTANCE_UPDATE_DISTANCE", 0);
+        Log.info("Starting module: " + this.name);
+	},
 
-// 		// Schedule update interval.
-// 		var self = this;
-// 		setInterval(function() {
-// 		    self.refreshDistance();
-// 			self.updateDom();
-// 		}, this.config.updateInterval);
-//     }
+	getDom: function() {
+        var wrapper = document.createElement("div");
+        wrapper.innerHTML = this.distance;
+        return wrapper;
+	},
+    
+	socketNotificationReceived: function(notification, payload) {
+		if (notification === "DISTANCE_NEW_DISTANCE") {
+            this.distance = payload.distance;
+			this.updateDom();
+		}
+	},
+    
 });

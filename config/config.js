@@ -78,6 +78,11 @@ var config = {
 				clientID: '1ac41561ee34529a647a',
 				lists: ['Einkaufsliste Hit', 'Einkaufsliste Aldi'],
         	},
+		},
+		{
+        	module: 'Distance',
+        	position: 'top_center',
+        	header: 'Distanz',
 		}
 	]
 };
