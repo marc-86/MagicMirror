@@ -19,26 +19,26 @@ module.exports = NodeHelper.create({
 	},
 	
 	updateDistance: function (self) {
-		setTimeout(function () {
-			self.distance = self.sensor().toFixed(2);
-		}, 60);
+		// setTimeout(function () {
+		// 	self.distance = self.sensor().toFixed(2);
+		// }, 60);
 		
 		//TEST
-		// self.distance = Math.random();
+		self.distance = Math.random();
 		
 		self.sendSocketNotification("DISTANCE_NEW_DISTANCE", {distance: self.distance});
 	},
 
 	initSensor: function (self) {
 		this.sensor = null;
-		usonic.init(function (error) {
-    		if (error) {
-				console.log('Error');
-			} else {	
-				this.sensor = usonic.createSensor(this.config.echoPin, this.config.triggerPin, this.config.timeout);
-				console.log('usonic sensor initialised');
-			}
-		};	
+		// usonic.init(function (error) {
+    	// 	if (error) {
+		// 		console.log('Error');
+		// 	} else {	
+		// 		this.sensor = usonic.createSensor(this.config.echoPin, this.config.triggerPin, this.config.timeout);
+		// 		console.log('usonic sensor initialised');
+		// 	}
+		// };	
 	},
 
 	socketNotificationReceived: function(notification, payload) {
