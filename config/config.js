@@ -80,7 +80,7 @@ var config = {
         	},
 		},
 		{
-        	module: 'Distance',
+        	module: 'distance',
         	position: 'top_center',
         	header: 'Distanz',
 		}

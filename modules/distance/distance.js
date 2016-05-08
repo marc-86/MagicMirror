@@ -1,4 +1,4 @@
-Module.register("Distance",{
+Module.register("distance",{
 
 	defaults: {
         updateInterval: 200,
