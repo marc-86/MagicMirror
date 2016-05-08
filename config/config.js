@@ -79,11 +79,11 @@ var config = {
 				lists: ['Einkaufsliste Hit', 'Einkaufsliste Aldi'],
         	},
 		},
-		{
-        	module: 'distance',
-        	position: 'top_center',
-        	header: 'Distanz',
-		}
+		// {
+        // 	module: 'distance',
+        // 	position: 'top_center',
+        // 	header: 'Distanz',
+		// }
 	]
 };
 
