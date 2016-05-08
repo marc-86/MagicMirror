@@ -42,21 +42,21 @@ module.exports = NodeHelper.create({
 	},
 
 	socketNotificationReceived: function(notification, payload) {
-		if (notification === "DISTANCE_UPDATE_DISTANCE") {
-			this.updateDistance();			
-		} else if (notification === "SET_CONFIG"){
+		// if (notification === "DISTANCE_UPDATE_DISTANCE") {
+		// 	this.updateDistance();			
+		// } else if (notification === "SET_CONFIG"){
 			
-			if (this.timer) {
-				clearInterval(this.timer);
-			}
+		// 	if (this.timer) {
+		// 		clearInterval(this.timer);
+		// 	}
 		
-			this.config.updateInterval = payload.updateInterval;
-			this.config.echoPin = payload.echoPin;
-			this.config.triggerPin = payload.triggerPin;
-			this.config.timeout = payload.timeout;			
-			this.initSensor();
+		// 	this.config.updateInterval = payload.updateInterval;
+		// 	this.config.echoPin = payload.echoPin;
+		// 	this.config.triggerPin = payload.triggerPin;
+		// 	this.config.timeout = payload.timeout;			
+		// 	this.initSensor();
 			
-			this.timer = setInterval(this.updateDistance, this.config.updateInterval, this);
-		};
+		// 	this.timer = setInterval(this.updateDistance, this.config.updateInterval, this);
+		// };
 	},
 });
