@@ -9,6 +9,28 @@
  * Changes to this files will be ignored by GIT. *
  *****************************************************/
 
- body {
-    font-size: 2.5em;	
- }
+.xsmall {
+  font-size: 20px;
+  line-height: 25px;
+}
+
+.small {
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.medium {
+  font-size: 35px;
+  line-height: 40px;
+}
+
+.large {
+  font-size: 70px;
+  line-height: 70px;
+}
+
+.xlarge {
+  font-size: 80px;
+  line-height: 80px;
+  letter-spacing: -3px;
+}
