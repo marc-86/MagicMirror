@@ -8,7 +8,7 @@
  */
 
 var NodeHelper = require("node_helper");
-var usonic = require('r-pi-usonic');
+// var usonic = require('r-pi-usonic');
 
 module.exports = NodeHelper.create({	
 	start: function() {
