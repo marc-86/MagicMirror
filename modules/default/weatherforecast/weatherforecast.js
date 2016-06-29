@@ -12,8 +12,10 @@ Module.register("weatherforecast",{
 	// Default module config.
 	defaults: {
 		location: "",
+		locationID: "",
 		appid: "",
 		units: config.units,
+		maxNumberOfDays: 7,
 		updateInterval: 10 * 60 * 1000, // every 10 minutes
 		animationSpeed: 1000,
 		timeFormat: config.timeFormat,
@@ -60,6 +62,14 @@ Module.register("weatherforecast",{
 		return ["weather-icons.css", "weatherforecast.css"];
 	},
 
+	// Define required translations.
+	getTranslations: function() {
+		// The translations for the defaut modules are defined in the core translation files.
+		// Therefor we can just return false. Otherwise we should have returned a dictionairy.
+		// If you're trying to build yiur own module including translations, check out the documentation.
+		return false;
+	},
+
 	// Define start sequence.
 	start: function() {
 		Log.info("Starting module: " + this.name);
@@ -92,7 +102,7 @@ Module.register("weatherforecast",{
 		}
 
 		if (!this.loaded) {
-			wrapper.innerHTML = "Loading weather ...";
+			wrapper.innerHTML = this.translate('LOADING');
 			wrapper.className = "dimmed light small";
 			return wrapper;
 		}
@@ -186,9 +196,19 @@ Module.register("weatherforecast",{
 	 */
 	getParams: function() {
 		var params = "?";
-		params += "q=" + this.config.location;
+		if(this.config.locationID !== "") {
+			params += "id=" + this.config.locationID;
+		} else { 
+			params += "q=" + this.config.location;
+		}
 		params += "&units=" + this.config.units;
 		params += "&lang=" + this.config.lang;
+		/*
+		 * Submit a specific number of days to forecast, between 1 to 16 days.
+		 * The OpenWeatherMap API properly handles values outside of the 1 - 16 range and returns 7 days by default.
+		 * This is simply being pedantic and doing it ourselves.
+		 */
+		params += "&cnt=" + (((this.config.maxNumberOfDays < 1) || (this.config.maxNumberOfDays > 16)) ? 7 : this.config.maxNumberOfDays);
 		params += "&APPID=" + this.config.appid;
 
 		return params;
