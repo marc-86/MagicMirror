@@ -65,3 +65,4 @@ Temporary Items
 # Ignore changes to the custom css files.
 /css/custom.css
 /.vscode/.browse.VC.db
+/.vscode
