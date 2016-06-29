@@ -1,61 +1,129 @@
-MagicMirror
-===========
+![MagicMirror²: The open source modular smart mirror platform. ](.github/header.png)
 
-**Note:** Please check out the [v2-beta](https://github.com/MichMich/MagicMirror/tree/v2-beta) branch if you are looking for a modular system with simple installer.
+<p align="center">
+	<a href="https://david-dm.org/MichMich/MagicMirror"><img src="https://david-dm.org/MichMich/MagicMirror.svg" alt="Dependency Status"></a>
+	<a href="https://david-dm.org/MichMich/MagicMirror#info=devDependencies"><img src="https://david-dm.org/MichMich/MagicMirror/dev-status.svg" alt="devDependency Status"></a>
+	<a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-v5.10.1-brightgreen.svg" alt="Node Version"></a>
+	<a href="http://choosealicense.com/licenses/mit"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+	<a href="https://travis-ci.org/MichMich/MagicMirror"><img src="https://travis-ci.org/MichMich/MagicMirror.svg" alt="Travis"></a>
+	<a href="https://snyk.io/test/github/MichMich/MagicMirror"><img src="https://snyk.io/test/github/MichMich/MagicMirror/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/MichMich/MagicMirror" style="max-width:100%;"></a>
+</p>
 
-##Introduction
+**MagicMirror²** is an open source modular smart mirror platform. With a growing list of installable modules, the **MagicMirror²** allows you to convert your hallway or bathroom mirror into your personal assistant. **MagicMirror²** is built by the creator of [the original MagicMirror](http://michaelteeuw.nl/tagged/magicmirror) with the incredible help of a [growing community of contributors](https://github.com/MichMich/MagicMirror/graphs/contributors). 
 
-The super magic interface of my personal Magic Mirror. More information about this project can be found on my [blog](http://michaelteeuw.nl/tagged/magicmirror).
+MagicMirror² focuses on a modular plugin system and uses [Electron](http://electron.atom.io/) as an application wrapper. So no more web server or browser installs necessary!
 
-Runs as a php script on a web server with basically no external dependencies. *Can use socket.io for XBEE integration, but isn't required for basic functionality*.
+## Table Of Contents
+
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Modules](#modules)
+- [Known Issues](#known-issues)
+- [community](#community)
+- [Contributing Guidelines](#contributing-guidelines)
+
+## Usage 
+
+#### Raspberry Pi Support
+Electron, the app wrapper around MagicMirror², only supports the Raspberry Pi 2 & 3. The Raspberry Pi 1 is currently **not** supported. If you want to run this on a Raspberry Pi 1, use the [server only](#server-only) feature and setup a fullscreen browser yourself.
+
+#### Automatic Installer (Raspberry Pi Only!)
+
+Execute the following command on your Raspberry Pi to install MagicMirror²:
+````
+curl -sL https://raw.githubusercontent.com/MichMich/MagicMirror/master/installers/raspberry.sh | bash
+````
+
+#### Manual Installation
+
+1. Download and install the latest Node.js version.
+2. Clone the repository and check out the beta branch: `git clone https://github.com/MichMich/MagicMirror`
+3. Enter the repository: `cd ~/MagicMirror`
+4. Install and run the app: `npm install && npm start`
+
+**Important:** `npm start` does **not** work via SSH, use `DISPLAY=:0 nohup npm start &` instead. This starts the mirror on the remote display.
+
+#### Server Only
+
+In some cases, you want to start the application without an actual app window. In this case, execute the following command from the MagicMirror folder: `node serveronly`. This will start the server, after which you can open the application in your browser of choice.
+
+#### Raspberry Configuration & Auto Start.
+
+The following wiki links are helpful in the configuration of your MagicMirror² operating system:
+- [Configuring the Raspberry Pi](https://github.com/MichMich/MagicMirror/wiki/Configuring-the-Raspberry-Pi)
+- [Auto Starting MagicMirror](https://github.com/MichMich/MagicMirror/wiki/Auto-Starting-MagicMirror)
+
+#### Updating you MagicMirror²
+
+If you want to update your MagicMirror² to the latest version, use your terminal to go to your Magic Mirror folder and type the following command:
+
+````
+git pull
+```` 
+
+If you changed nothing more than the config or the modules, this should work without any problems. 
+Type `git status` to see your changes, if there are any, you can reset them with `git reset --hard`. After that, git pull should be possible.
+
+## Configuration
+
+1. Duplicate `config/config.js.sample` to `config/config.js`.
+2. Modify your required settings.
+
+The following properties can be configured:
 
 
-##Configuration
+| **Option** | **Description** |
+| --- | --- |
+| `port` | The port on which the MagicMirror² server will run on. The default value is `8080`. |
+| `language` | The language of the interface. (Note: Not all elements will be localized.) Possible values are `en`, `nl`, `ru`, `fr`, etc., but the default value is `en`. |
+| `timeFormat` | The form of time notation that will be used. Possible values are `12` or `24`. The default is `24`. |
+| `units` | The units that will be used in the default weather modules. Possible values are `metric` or `imperial`. The default is `metric`. |
+| `modules` | An array of active modules. **The array must contain objects. See the next table below for more information.** |
 
-Modify `js/config.js` to change some general variables (language, weather location, compliments, news feed RSS and to add your own ICS calendars)
+Module configuration:
 
-To use the OpenWeatherMap API, you'll need a free API key. Checkout [this blogpost](http://michaelteeuw.nl/post/131504229357/what-happened-to-the-weather) for more information.
+| **Option** | **Description** |
+| --- | --- |
+| `module` | The name of the module. This can also contain the subfolder. Valid examples include `clock`, `default/calendar` and `custommodules/mymodule`. |
+| `position` | The location of the module in which the module will be loaded. Possible values are `top_ bar`, `top_left`, `top_center`, `top_right`, `upper_third`, `middle_center`, `lower_third`, `bottom_left`, `bottom_center`, `bottom_right`, `bottom_bar`, `fullscreen_above`, and `fullscreen_below`. This field is optional but most modules require this field to set. Check the documentation of the module for more information. Multiple modules with the same position will be ordered based on the order in the configuration file. |
+| `classes` | Additional classes which are passed to the module. The field is optional. |
+| `header` | To display a header text above the module, add the header property. This field is optional. |
+| `config` | An object with the module configuration properties. Check the documentation of the module for more information. This field is optional, unless the module requires extra configuration. |
 
-##Code
+## Modules
 
-###[main.js](js/main.js)
+The following modules are installed by default.
 
-This file initiates the separate pieces of functionality that will appear in the view.  It also includes various utility functions that are used to update what is visible.
+- [**Clock**](modules/default/clock)
+- [**Calendar**](modules/default/calendar)
+- [**Current Weather**](modules/default/currentweather)
+- [**Weather Forecast**](modules/default/weatherforecast)
+- [**News Feed**](modules/default/newsfeed)
+- [**Compliments**](modules/default/compliments)
+- [**Hello World**](modules/default/helloworld)
+- [**Alert**](modules/default/alert)
 
-###[Calendar](js/calendar)
+For more available modules, check out out the wiki page: [MagicMirror² Modules](https://github.com/MichMich/MagicMirror/wiki/MagicMirror²-Modules). If you want to build your own modules, check out the [MagicMirror² Module Development Documentation](modules) and don't forget to add it to the wiki and the [forum](https://forum.magicmirror.builders/category/7/showcase)!
 
-Parsing functionality for the calendar that retrieves and updates the calendar based on the interval set at the top of the [calendar.js](js/calendar/calendar.js) file. This was actually a straight pull from the original main.js file but the parsing code may deserve an upgrade.
+## Known issues
 
-###[Compliments](js/compliments)
+- Electron seems to have some issues on certain Raspberry Pi 2's. See [#145](https://github.com/MichMich/MagicMirror/issues/145).
+- MagicMirror² (Electron) sometimes quits without an error after an extended period of use. See [#150](https://github.com/MichMich/MagicMirror/issues/150). 
 
-Functionality related to inserting compliments into the view and rotating them based on a specific interval set at the top of the [compliments.js](js/compliments/compliments.js) file.
+## Community
 
-###[News](js/news)
+The community around the MagicMirror² is constantly growing. We even have a [forum](https://forum.magicmirror.builders) now where you can share your ideas, ask questions, help others and get inspired by other builders. We would love to see you there!
 
-Takes an array of news feeds (or a single string) from the config file and retrieves each one so that it can be displayed in a loop based on the interval set at the top of the [news.js](js/news/news.js) file.
+## Contributing Guidelines
 
-###[Time](js/time)
+Contributions of all kinds are welcome, not only in the form of code but also with regards bug reports and documentation.
 
-Updates the time on the screen on one second interval. Can be changed to omit displaying seconds by adding the config option ```displaySeconds = false``` in [config.js](js/config.js). When the seconds are disabled the interval is set to 60 seconds on the full minute.
+Please keep the following in mind:
 
-With the option ```digitFade = true```, changing digits are faded. This looks best if the seconds are omitted.
+- **Bug Reports**:  Make sure you're running the latest version. If the issue(s) still persist: please open a clearly documented issue with a clear title. 
+- **Minor Bug Fixes**: Please send a pull request with a clear explanation of the issue or a link to the issue it solves.
+- **Major Bug Fixes**: please discuss your approach in an GitHub issue before you start to alter a big part of the code.
+- **New Features**: please please discuss in a GitHub issue before you start to alter a big part of the code. Without discussion upfront, the pull request will not be accepted / merged.
 
-###[Version](js/version)
+Thanks for your help in making MagicMirror² better! 
 
-Checks the git version and refreshes if a new version has been pulled.
-
-###[Weather](js/weather)
-
-Takes the user's inserted location, language, unit type, and OpenWeatherMap API key and grabs the five day weather forecast from OpenWeatherMap. You need to set the API key in the config for this to work. (See *configuration*.)
-
-##Modules
-
-###[MagicMirror-Modules by PaViRo](https://github.com/paviro/MagicMirror-Modules)
-
-**Current features:** FRITZ!Box Callmonitor <br>
-**Future features:** Faceregognition, personalized views, online banking through HBCI and multiple calenders based on faceregognition.
-
-###[MagicMirror-Netatmo-Module by cfenner](https://github.com/CFenner/MagicMirror-Netatmo-Module)
-
-**Current features:** display data of Netatmo weather station (inside/outside)<br>
-**Future features:** display of local warnings (severe weather)
