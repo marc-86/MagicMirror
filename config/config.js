@@ -79,6 +79,12 @@ var config = {
 				lists: ['Einkaufsliste Hit', 'Einkaufsliste Aldi'],
         	},
 		},
+    	{
+        	module: 'MMM-PIR-Sensor',
+        	config: {
+            // See 'Configuration options' for more information.
+        	}
+    	},
 		// {
         // 	module: 'distance',
         // 	position: 'top_center',
