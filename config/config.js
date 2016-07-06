@@ -95,7 +95,8 @@ var config = {
 				limitYellow: 10,
 				limitRed: 20,
 				traffic_model: 'pessimistic',
-				interval: 120000 //2 minutes
+				interval: 120000, //2 minutes
+                                prependText: ' '
 			}
 		},
 		{
