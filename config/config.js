@@ -73,7 +73,7 @@ var config = {
 		{
 		 	module: 'MMM-Wunderlist',
 		 	position: 'top_left',
-			header: 'ToDo´s',
+			header: 'ToDo',
 			config: {
 				accessToken: '0632cd80a6846448755aa50fdafed4ae62433942e08e1ad971ca4929d59e',
 				clientID: '1ac41561ee34529a647a',
