@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 "use strict";
 
 const Server = require(__dirname + "/server.js");
@@ -16,23 +18,63 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 
 function createWindow() {
+
+	var electronOptionsDefaults = {
+		width: 800,
+		height: 600,
+		x: 0,
+		y: 0,
+		darkTheme: true,
+		webPreferences: {
+			nodeIntegration: false,
+			zoomFactor: config.zoom
+		},
+		backgroundColor: "#000000"
+	}
+
+	// DEPRECATED: "kioskmode" backwards compatibility, to be removed
+	// settings these options directly instead provides cleaner interface
+	if (config.kioskmode) {
+		electronOptionsDefaults.kiosk = true;
+	} else {
+		electronOptionsDefaults.fullscreen = true;
+		electronOptionsDefaults.autoHideMenuBar = true;
+	}
+
+	var electronOptions = Object.assign({}, electronOptionsDefaults, config.electronOptions);
+
 	// Create the browser window.
-	mainWindow = new BrowserWindow({width: 800, height: 600,  fullscreen: true, autoHideMenuBar: true, darkTheme: true, webPreferences: {nodeIntegration: false}});
+	mainWindow = new BrowserWindow(electronOptions);
 
 	// and load the index.html of the app.
 	//mainWindow.loadURL('file://' + __dirname + '../../index.html');
 	mainWindow.loadURL("http://localhost:" + config.port);
 
-	// Open the DevTools.
-	//mainWindow.webContents.openDevTools();
+	// Open the DevTools if run with "npm start dev"
+	if(process.argv[2] == "dev") {
+		mainWindow.webContents.openDevTools();
+	}
 
-	// Emitted when the window is closed.
+	// Set responders for window events.
 	mainWindow.on("closed", function() {
-		// Dereference the window object, usually you would store windows
-		// in an array if your app supports multi windows, this is the time
-		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
+
+	if (config.kioskmode) {
+		mainWindow.on("blur", function() {
+			mainWindow.focus();
+		});
+
+		mainWindow.on("leave-full-screen", function() {
+			mainWindow.setFullScreen(true);
+		});
+
+		mainWindow.on("resize", function() {
+			setTimeout(function() {
+				mainWindow.reload();
+			}, 1000);
+		});
+	}
 }
 
 // This method will be called when Electron has finished
@@ -44,11 +86,7 @@ app.on("ready", function() {
 
 // Quit when all windows are closed.
 app.on("window-all-closed", function() {
-	// On OS X it is common for applications and their menu bar
-	// to stay active until the user quits explicitly with Cmd + Q
-	if (process.platform !== "darwin") {
-		app.quit();
-	}
+	createWindow();
 });
 
 app.on("activate", function() {

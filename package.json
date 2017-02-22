@@ -1,14 +1,14 @@
 {
   "name": "magicmirror",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "A modular interface for smart mirrors.",
   "main": "js/electron.js",
   "scripts": {
-    "start": "electron js/electron.js",
-    "jscs": "jscs **/**/**/**/*.js",
-    "stylelint": "stylelint css/main.css fonts/roboto.css",
-    "htmlvalidator": "html-validator --file=index.html",
-    "test": "snyk test"
+    "start": "sh run-start.sh",
+    "postinstall": "sh installers/postinstall/postinstall.sh",
+    "test": "./node_modules/mocha/bin/mocha tests --recursive",
+    "test:unit": "./node_modules/mocha/bin/mocha tests/unit --recursive",
+    "test:e2e": "./node_modules/mocha/bin/mocha tests/e2e --recursive"
   },
   "repository": {
     "type": "git",
@@ -21,32 +21,41 @@
     "modular"
   ],
   "author": "Michael Teeuw",
-  "contributors": "https://github.com/MichMich/MagicMirror/graphs/contributors",
+  "contributors": [
+    "https://github.com/MichMich/MagicMirror/graphs/contributors"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MichMich/MagicMirror/issues"
   },
   "homepage": "https://github.com/MichMich/MagicMirror#readme",
   "devDependencies": {
-    "electron-prebuilt": "latest",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "grunt": "latest",
     "grunt-eslint": "latest",
-    "grunt-postcss": "latest",
-    "postcss-reporter": "latest",
-    "stylelint": "latest",
+    "grunt-jsonlint": "latest",
+    "grunt-markdownlint": "^1.0.13",
+    "grunt-stylelint": "latest",
+    "grunt-yamllint": "latest",
+    "mocha": "^3.2.0",
+    "spectron": "^3.4.1",
     "stylelint-config-standard": "latest",
     "time-grunt": "latest"
   },
   "dependencies": {
-    "express": "latest",
+    "electron": "^1.4.7",
+    "express": "^4.14.0",
+    "express-ipfilter": "latest",
     "feedme": "latest",
+    "helmet": "^3.1.0",
     "iconv-lite": "latest",
     "moment": "latest",
-    "request": "latest",
-    "snyk": "latest",
-    "socket.io": "latest",
+    "request": "^2.78.0",
+    "rrule-alt": "^2.2.3",
+    "simple-git": "^1.62.0",
+    "socket.io": "^1.7.3",
     "valid-url": "latest",
-    "walk": "latest",
-    "rrule": "latest"
+    "walk": "latest"
   }
 }
