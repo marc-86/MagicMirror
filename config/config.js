@@ -121,12 +121,12 @@ var config = {
 				// See 'Configuration options' for more information.
 			}
 		},
-		{
-			module: 'PIR-Sensor',
-			config: {
-				sensorPIN:22,
-			}
-		},
+		//{
+		//	module: 'PIR-Sensor',
+		//	config: {
+		//		sensorPIN:22,
+		//	}
+		//},
 		// {
         // 	module: 'distance',
         // 	position: 'top_center',
