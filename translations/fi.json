@@ -4,7 +4,7 @@
 	"TODAY": "Tänään",
 	"TOMORROW": "Huomenna",
 	"DAYAFTERTOMORROW": "Ylihuomenna",
-	"RUNNING": "Meneillään",
+	"RUNNING": "Päättyy {timeUntilEnd} päästä",
 	"EMPTY": "Ei tulevia tapahtumia.",
 
 	"N": "P",
@@ -25,5 +25,5 @@
 	"NNW": "PPL",
 	
 	"UPDATE_NOTIFICATION": "MagicMirror² päivitys saatavilla.",
-	"UPDATE_NOTIFICATION_MODULE": "Päivitys saatavilla moduulille MODULE_NAME."
+	"UPDATE_NOTIFICATION_MODULE": "Päivitys saatavilla moduulille {MODULE_NAME}."
 }

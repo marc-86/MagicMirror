@@ -21,10 +21,10 @@ echo -e "\e[0m"
 # Define the tested version of Node.js.
 NODE_TESTED="v5.1.0"
 
-#Determine which Pi is running.
+# Determine which Pi is running.
 ARM=$(uname -m) 
 
-#Check the Raspberry Pi version.
+# Check the Raspberry Pi version.
 if [ "$ARM" != "armv7l" ]; then
 	echo -e "\e[91mSorry, your Raspberry Pi is not supported."
 	echo -e "\e[91mPlease run MagicMirror on a Raspberry Pi 2 or 3."
@@ -32,7 +32,7 @@ if [ "$ARM" != "armv7l" ]; then
 	exit;
 fi
 
-#define helper methods.
+# Define helper methods.
 function version_gt() { test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; }
 function command_exists () { type "$1" &> /dev/null ;}
 
@@ -42,7 +42,7 @@ sudo apt-get update || echo -e "\e[91mUpdate failed, carrying on installation ..
 
 # Installing helper tools
 echo -e "\e[96mInstalling helper tools ...\e[90m"
-sudo apt-get install curl wget git build-essential unzip || exit
+sudo apt-get --assume-yes install curl wget git build-essential unzip || exit
 
 # Check if we need to install or upgrade Node.js.
 echo -e "\e[96mCheck current Node installation ...\e[0m"
@@ -56,8 +56,8 @@ if command_exists node; then
 		echo -e "\e[96mNode should be upgraded.\e[0m"
 		NODE_INSTALL=true
 
-		#Check if a node process is currenlty running.
-		#If so abort installation.
+		# Check if a node process is currenlty running.
+		# If so abort installation.
 		if pgrep "node" > /dev/null; then
 			echo -e "\e[91mA Node process is currently running. Can't upgrade."
 			echo "Please quit all Node processes and restart the installer."
@@ -65,7 +65,7 @@ if command_exists node; then
 		fi
 
 	else
-		echo -e "\e[92mNo Node.js upgrade nessecery.\e[0m"
+		echo -e "\e[92mNo Node.js upgrade necessary.\e[0m"
 	fi
 
 else
@@ -78,17 +78,17 @@ if $NODE_INSTALL; then
 	
 	echo -e "\e[96mInstalling Node.js ...\e[90m"
 
-	#Fetch the latest version of Node.js from the selected branch
-	#The NODE_STABLE_BRANCH variable will need to be manually adjusted when a new branch is released. (e.g. 7.x)
-	#Only tested (stable) versions are recommended as newer versions could break MagicMirror.
+	# Fetch the latest version of Node.js from the selected branch
+	# The NODE_STABLE_BRANCH variable will need to be manually adjusted when a new branch is released. (e.g. 7.x)
+	# Only tested (stable) versions are recommended as newer versions could break MagicMirror.
 	
-	NODE_STABLE_BRANCH="6.x"
+	NODE_STABLE_BRANCH="9.x"
 	curl -sL https://deb.nodesource.com/setup_$NODE_STABLE_BRANCH | sudo -E bash -
 	sudo apt-get install -y nodejs
 	echo -e "\e[92mNode.js installation Done!\e[0m"
 fi
 
-#Install magic mirror
+# Install MagicMirror
 cd ~
 if [ -d "$HOME/MagicMirror" ] ; then
 	echo -e "\e[93mIt seems like MagicMirror is already installed."
@@ -101,7 +101,7 @@ if [ -d "$HOME/MagicMirror" ] ; then
 fi
 
 echo -e "\e[96mCloning MagicMirror ...\e[90m"
-if git clone https://github.com/MichMich/MagicMirror.git; then 
+if git clone --depth=1 https://github.com/MichMich/MagicMirror.git; then 
 	echo -e "\e[92mCloning MagicMirror Done!\e[0m"
 else
 	echo -e "\e[91mUnable to clone MagicMirror."
@@ -149,9 +149,8 @@ else
 fi
 
 # Use pm2 control like a service MagicMirror
-read -p "Do you want use pm2 for auto starting of your MagicMirror (y/n)?" choice
-if [[ $choice =~ ^[Yy]$ ]]
-then
+read -p "Do you want use pm2 for auto starting of your MagicMirror (y/N)?" choice
+if [[ $choice =~ ^[Yy]$ ]]; then
     sudo npm install -g pm2
     sudo su -c "env PATH=$PATH:/usr/bin pm2 startup linux -u pi --hp /home/pi"
     pm2 start ~/MagicMirror/installers/pm2_MagicMirror.json
