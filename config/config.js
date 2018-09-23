@@ -89,7 +89,7 @@ var config = {
 		{
 			module: 'MMM-PIR-Sensor',
 			config: {
-				sensorPIN:27,
+				sensorPIN:17,
 			}
 		},
 		// {
