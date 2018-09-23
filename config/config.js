@@ -16,9 +16,6 @@ var config = {
 			module: 'alert',
 		},
 		{
-			module: 'distance',
-		},
-		{
 			module: 'clock',
 			position: 'top_left'
 		},
@@ -71,33 +68,13 @@ var config = {
 			}
 		},
 		{
-		 	module: 'MMM-Wunderlist',
-		 	position: 'top_left',
-			header: 'ToDo',
-			config: {
-				accessToken: '0632cd80a6846448755aa50fdafed4ae62433942e08e1ad971ca4929d59e',
-				clientID: '1ac41561ee34529a647a',
-				lists: ['ToDo'],
-			},
-		},
-		{
-		 	module: 'MMM-Wunderlist',
-		 	position: 'top_left',
-			header: 'ToDo Haus',
-			config: {
-				accessToken: '0632cd80a6846448755aa50fdafed4ae62433942e08e1ad971ca4929d59e',
-				clientID: '1ac41561ee34529a647a',
-				lists: ['ToDo Haus'],
-			},
-		},
-		{
 			module: 'MMM-Traffic',
 			position: 'bottom_right',
 			classes: 'dimmed medium', //optional, default is 'bright medium', only applies to commute info not route_name
 			config: {
 				api_key: 'AIzaSyBVRrfpaE_YLtHe2nYyQqLpbiYmEsi1uXg',
 				mode: 'driving',
-				origin: 'Martin-Luther-Strasse 28, 52249 Eschweiler',
+				origin: 'Kathy-Beys-Straße 2, 52249 Eschweiler',
 				destination: 'Hansemannplatz, Aachen',
 				route_name: 'Home to Work',
 				changeColor: true,
@@ -106,7 +83,7 @@ var config = {
 				limitRed: 20,
 				traffic_model: 'pessimistic',
 				interval: 120000, //2 minutes
-                                prependText: ' '
+                prependText: ' '
 			}
 		},
 		{
@@ -115,12 +92,12 @@ var config = {
 				sensorPIN:27,
 			}
 		},
-		{
-			module: 'MMM-Podcast',
-			config: {
-				// See 'Configuration options' for more information.
-			}
-		},
+		// {
+		// 	module: 'MMM-Podcast',
+		// 	config: {
+		// 		// See 'Configuration options' for more information.
+		// 	}
+		// },
 		//{
 		//	module: 'PIR-Sensor',
 		//	config: {
